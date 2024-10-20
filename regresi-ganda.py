@@ -1,16 +1,21 @@
 import pickle
 import streamlit as st
+import os
 
 # Aplikasi Streamlit
 st.title('Prediksi Kalori')
+
+# Load the trained KNN model
+model_path = 'regression_model.pkl'  # Ganti dengan jalur yang benar jika perlu
+print("Memuat model dari:", os.path.abspath(model_path))
+
 try:
-    st.write("Memuat model...")
-    loaded_model = pickle.load(open('regression_model.pkl', 'rb'))
-    st.write("Model berhasil dimuat.")
+    with open(model_path, 'rb') as model_file:
+        knn = pickle.load(model_file)
 except FileNotFoundError:
-    st.error("File model tidak ditemukan. Pastikan jalur dan nama file benar.")
+    print("File model tidak ditemukan. Pastikan jalur dan nama file benar.")
 except Exception as e:
-    st.error(f"Terjadi kesalahan saat memuat model: {e}")
+    print(f"Terjadi kesalahan saat memuat model: {e}")
 
 # Form input data
 st.header('Masukan Data')
