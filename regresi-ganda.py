@@ -3,6 +3,14 @@ import streamlit as st
 
 # Aplikasi Streamlit
 st.title('Prediksi Kalori')
+try:
+    st.write("Memuat model...")
+    loaded_model = pickle.load(open('regression_model.pkl', 'rb'))
+    st.write("Model berhasil dimuat.")
+except FileNotFoundError:
+    st.error("File model tidak ditemukan. Pastikan jalur dan nama file benar.")
+except Exception as e:
+    st.error(f"Terjadi kesalahan saat memuat model: {e}")
 
 # Form input data
 st.header('Masukan Data')
